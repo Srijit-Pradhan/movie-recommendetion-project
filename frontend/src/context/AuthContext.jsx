@@ -83,6 +83,13 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
+  // Step 10: Update User profile (Name/Email)
+  const updateUser = async (userData) => {
+    const { data } = await api.put("/api/users/profile", userData);
+    setUser((prev) => ({ ...prev, ...data }));
+    return data;
+  };
+
   // Jotokhon loading cholche totkhon blank screen othoba kono boro jhamela avoid korar jonno
   // loading false hbar pore children guloke dekhacchi
   return (
@@ -96,6 +103,7 @@ export const AuthProvider = ({ children }) => {
         logout,
         loading,
         refreshUser,
+        updateUser,
       }}
     >
       {!loading && children}

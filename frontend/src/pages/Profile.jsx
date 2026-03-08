@@ -11,13 +11,25 @@ import "./Profile.css";
 
 const Profile = () => {
   // Context pabo user info r token API a auth header dewar jonne
-  const { user, token, logout, loading: authLoading } = useContext(AuthContext);
+  const {
+    user,
+    token,
+    logout,
+    updateUser,
+    loading: authLoading,
+  } = useContext(AuthContext);
   const navigate = useNavigate();
 
   // local page data
   const [profileData, setProfileData] = useState(null); // backend theke asa pura details (favs, history shoho)
   const [profileLoading, setProfileLoading] = useState(true);
   const [activeTab, setActiveTab] = useState("favorites"); // Default kon tab active (select) thakbe UI e
+
+  // Profile editing states
+  const [isEditing, setIsEditing] = useState(false);
+  const [editName, setEditName] = useState(user?.name || "");
+  const [editEmail, setEditEmail] = useState(user?.email || "");
+  const [updateLoading, setUpdateLoading] = useState(false);
 
   // Helper Function: User er name er 1st letter ta as Avatar profile pic er jaigay use kre debo.
   const renderUserAvatar = () => {
@@ -26,6 +38,29 @@ const Profile = () => {
     }
     return "";
   };
+
+  // Profile update handler
+  const handleUpdateProfile = async (e) => {
+    e.preventDefault();
+    try {
+      setUpdateLoading(true);
+      await updateUser({ name: editName, email: editEmail });
+      setIsEditing(false);
+    } catch (error) {
+      console.error("Error updating profile", error);
+      alert("Failed to update profile");
+    } finally {
+      setUpdateLoading(false);
+    }
+  };
+
+  // Reset edit fields when opening edit mode
+  useEffect(() => {
+    if (isEditing && user) {
+      setEditName(user.name);
+      setEditEmail(user.email);
+    }
+  }, [isEditing, user]);
 
   // Helper Function: jodi btn change hoy onno tab-e to kon loop theke TMDBProfileCard return korbe seta maintain korbe
   // Bises Drostobyo: backend ekhon TMDB er ID gulo String hisabe pathacche, tai amra id pass korchi map theke
@@ -164,10 +199,45 @@ const Profile = () => {
       <div className="profile-header">
         <div className="header-info">
           <div className="profile-avatar">{renderUserAvatar()}</div>
-          <div>
-            <h2>{user ? user.name : ""}</h2>
-            <p>{user ? user.email : ""}</p>
-          </div>
+          {isEditing ? (
+            <form onSubmit={handleUpdateProfile} className="edit-profile-form">
+              <input
+                type="text"
+                value={editName}
+                onChange={(e) => setEditName(e.target.value)}
+                placeholder="Name"
+                required
+              />
+              <input
+                type="email"
+                value={editEmail}
+                onChange={(e) => setEditEmail(e.target.value)}
+                placeholder="Email"
+                required
+              />
+              <div className="edit-actions">
+                <button type="submit" disabled={updateLoading}>
+                  {updateLoading ? "Saving..." : "Save"}
+                </button>
+                <button type="button" onClick={() => setIsEditing(false)}>
+                  Cancel
+                </button>
+              </div>
+            </form>
+          ) : (
+            <div>
+              <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
+                <h2>{user ? user.name : ""}</h2>
+                <button
+                  onClick={() => setIsEditing(true)}
+                  className="edit-btn-small"
+                >
+                  Edit
+                </button>
+              </div>
+              <p>{user ? user.email : ""}</p>
+            </div>
+          )}
         </div>
 
         {/* Logout Button added here */}

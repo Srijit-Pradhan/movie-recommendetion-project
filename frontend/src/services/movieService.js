@@ -10,7 +10,7 @@ export const movieService = {
   // Fetch movie details from our local database using movie ID
   getMovieDetails: async (id) => {
     try {
-      const { data } = await api.get(`/movies/${id}`);
+      const { data } = await api.get(`/api/movies/${id}`);
       return data;
     } catch (error) {
       return null;
@@ -31,6 +31,6 @@ export const movieService = {
   // Searching logic for local database
   // Search for movies in our local database using a keyword
   searchLocalMovies: (keyword) => {
-    return api.get(`/movies?keyword=${keyword}`);
+    return api.get(`/api/movies?keyword=${keyword}`);
   },
 };

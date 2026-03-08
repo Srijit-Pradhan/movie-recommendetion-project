@@ -268,6 +268,37 @@ const banUser = async (req, res) => {
   }
 };
 
+// Step 11: Update User Profile (Name/Email)
+const updateUserProfile = async (req, res) => {
+  try {
+    const user = await User.findById(req.user._id);
+
+    if (user) {
+      user.name = req.body.name || user.name;
+      user.email = req.body.email || user.email;
+
+      if (req.body.password) {
+        user.password = req.body.password;
+      }
+
+      const updatedUser = await user.save();
+
+      res.json({
+        _id: updatedUser._id,
+        name: updatedUser.name,
+        email: updatedUser.email,
+        isAdmin: updatedUser.isAdmin,
+        token: null, // Token handled separately if needed, but here we just update profile
+      });
+    } else {
+      res.status(404);
+      throw new Error("User not found");
+    }
+  } catch (error) {
+    res.status(400).json({ message: error.message });
+  }
+};
+
 module.exports = {
   getUserProfile,
   addFavorite,
@@ -278,4 +309,5 @@ module.exports = {
   toggleBookmark,
   toggleWatchlist,
   banUser,
+  updateUserProfile,
 };

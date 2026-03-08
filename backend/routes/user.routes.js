@@ -23,7 +23,7 @@ const { protect, admin } = require("../middleware/auth.middleware"); // Changed 
 router.route("/").get(protect, admin, getUsers);
 
 // User Profile pawar jonno (Logged in thakte hobe)
-router.route("/profile").get(protect, getUserProfile);
+router.route("/profile").get(protect, getUserProfile).put(protect, updateUserProfile);
 
 // Favorite er jonno routes (Add/Delete)
 router.route("/favorites").post(protect, addFavorite);

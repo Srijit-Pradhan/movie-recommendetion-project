@@ -10,7 +10,7 @@ export const userService = {
   // Add a movie to the user's watch history
   addToHistory: (movieId, token, mediaType) => {
     return api.post(
-      "/users/history",
+      "/api/users/history",
       { movieId: String(movieId), mediaType },
       {
         headers: token ? { Authorization: `Bearer ${token}` } : {},
@@ -24,11 +24,11 @@ export const userService = {
     const headers = token ? { Authorization: `Bearer ${token}` } : {};
     if (isFavorite) {
       // Jodi aage theke thake tahole delete korbo
-      return api.delete(`/users/favorites/${id}`, { headers });
+      return api.delete(`/api/users/favorites/${id}`, { headers });
     } else {
       // Na thakle add korbo
       return api.post(
-        "/users/favorites",
+        "/api/users/favorites",
         { movieId: String(id), mediaType },
         { headers },
       );
@@ -39,7 +39,7 @@ export const userService = {
   // Toggle bookmark status for a movie
   toggleBookmark: (id, token, mediaType) => {
     return api.post(
-      "/users/bookmarks",
+      "/api/users/bookmarks",
       { movieId: String(id), mediaType },
       {
         headers: token ? { Authorization: `Bearer ${token}` } : {},
@@ -51,11 +51,17 @@ export const userService = {
   // Toggle watchlist status for a movie
   toggleWatchlist: (id, token, mediaType) => {
     return api.post(
-      "/users/watchlist",
+      "/api/users/watchlist",
       { movieId: String(id), mediaType },
       {
         headers: token ? { Authorization: `Bearer ${token}` } : {},
       },
     );
+  },
+
+  // Profile update korar jonno
+  // Update user profile (name/email)
+  updateProfile: (userData) => {
+    return api.put("/api/users/profile", userData);
   },
 };
