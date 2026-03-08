@@ -1,0 +1,288 @@
+/* Step 1: Layout Containers */
+.admin-page {
+  padding: 20px 0;
+}
+
+.admin-page h1 {
+  margin-bottom: 30px;
+  font-size: 2.2rem;
+}
+
+.admin-layout {
+  display: grid;
+  grid-template-columns: 1fr 2.2fr;
+  gap: 30px;
+}
+
+@media (max-width: 992px) {
+  .admin-layout {
+    grid-template-columns: 1fr;
+  }
+}
+
+.admin-tabs {
+  display: none;
+}
+
+/* Step 2: Section Panels */
+.admin-form-section,
+.admin-list-section {
+  padding: 25px;
+  border-radius: 12px;
+  background-color: var(--card-bg-light);
+  border: 1px solid var(--border-light);
+  align-self: start;
+}
+
+body.dark .admin-form-section,
+body.dark .admin-list-section {
+  background-color: var(--card-bg-dark);
+  border-color: var(--border-dark);
+}
+
+.admin-form-section h2,
+.admin-list-section h2 {
+  font-size: 1.4rem;
+  margin-bottom: 20px;
+  border-bottom: 1px solid var(--border-light);
+  padding-bottom: 10px;
+}
+
+body.dark .admin-form-section h2,
+body.dark .admin-list-section h2 {
+  border-color: var(--border-dark);
+}
+
+/* Step 3: Form Styling */
+.admin-form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.admin-form textarea.input-field {
+  resize: vertical;
+  min-height: 100px;
+}
+
+.form-row {
+  display: flex;
+  gap: 15px;
+}
+.form-row > * {
+  flex: 1;
+}
+
+/* Step 4: Table Styling */
+.table-responsive {
+  overflow-x: auto;
+  max-height: 600px;
+  overflow-y: auto;
+}
+
+.admin-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.admin-table th,
+.admin-table td {
+  padding: 15px;
+  text-align: left;
+  border-bottom: 1px solid var(--border-light);
+}
+
+body.dark .admin-table th,
+body.dark .admin-table td {
+  border-bottom-color: var(--border-dark);
+}
+
+.admin-table th {
+  font-weight: 600;
+  color: var(--secondary-color);
+  position: sticky;
+  top: 0;
+  background-color: var(--card-bg-light);
+  z-index: 10;
+}
+
+body.dark .admin-table th {
+  background-color: var(--card-bg-dark);
+}
+
+.truncate {
+  max-width: 200px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Step 5: Buttons */
+.btn-delete {
+  background-color: #ef4444;
+  color: white;
+  border: none;
+  padding: 8px 14px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: opacity 0.3s;
+  font-weight: 500;
+}
+
+.btn-delete:hover {
+  opacity: 0.8;
+  background-color: #dc2626;
+}
+
+/* Step 6: Custom Tabs and Edit Button */
+.admin-tabs {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.admin-tabs .tab-btn {
+  padding: 10px 20px;
+  border: none;
+  background-color: var(--card-bg-light);
+  color: var(
+    --text-color-light
+  ); /* fixed invalid var to standard var(--text-color-light) */
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: all 0.3s;
+  border: 1px solid var(--border-light);
+}
+
+body.dark .admin-tabs .tab-btn {
+  background-color: var(--card-bg-dark);
+  color: var(--text-color-dark);
+  border-color: var(--border-dark);
+}
+
+.admin-tabs .tab-btn.active,
+body.dark .admin-tabs .tab-btn.active {
+  background-color: var(--primary-color);
+  color: white;
+  border-color: var(--primary-color);
+}
+
+.btn-edit {
+  background-color: #3b82f6;
+  color: white;
+  border: none;
+  padding: 8px 14px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: opacity 0.3s;
+  font-weight: 500;
+}
+
+.btn-edit:hover {
+  opacity: 0.8;
+  background-color: #2563eb;
+}
+
+.btn-edit:disabled,
+.btn-delete:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Mobile Responsive Adjustments */
+@media (max-width: 768px) {
+  .admin-page {
+    padding: 10px 12px;
+    max-width: 100vw;
+    box-sizing: border-box;
+    overflow-x: hidden;
+  }
+
+  .admin-page h1 {
+    font-size: 1.8rem;
+    margin-bottom: 20px;
+  }
+
+  .form-row {
+    flex-direction: column;
+    gap: 15px;
+    width: 100%;
+  }
+
+  .admin-form-section,
+  .admin-list-section {
+    padding: 15px 12px;
+    width: 100%;
+    box-sizing: border-box;
+    margin-bottom: 20px;
+  }
+
+  .admin-form .input-field {
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  .admin-tabs {
+    flex-wrap: nowrap; /* Keep tabs on one line even if tightly populated */
+    gap: 5px;
+  }
+
+  .admin-tabs .tab-btn {
+    flex: 1;
+    min-width: unset;
+    padding: 8px 5px;
+    font-size: 0.85rem;
+    text-align: center;
+  }
+
+  /* Make tables smaller and scrollable natively */
+  .admin-table th,
+  .admin-table td {
+    padding: 8px 5px;
+    font-size: 0.85rem;
+    word-break: break-all; /* Allow emails and long strings to break */
+  }
+
+  .admin-table th {
+    white-space: nowrap; /* Prevent headers like 'Actions' from breaking in half */
+  }
+
+  .table-responsive {
+    overflow-x: hidden; /* Remove scrollbar on mobile completely */
+    width: 100%;
+  }
+
+  .truncate {
+    max-width: 120px;
+    white-space: normal; /* Allow titles to wrap normally */
+    word-break: break-word; /* Only break words on long titles */
+  }
+
+  /* Stack action buttons to save horizontal space only on very small screens if needed, 
+     but user wants them side-by-side (pasapasi) */
+  .action-buttons {
+    display: flex;
+    gap: 8px;
+    flex-wrap: nowrap;
+    align-items: center;
+  }
+
+  .btn-edit,
+  .btn-delete {
+    padding: 6px 10px;
+    font-size: 0.8rem;
+    display: inline-block; /* override any previous block settings */
+    width: auto; /* override any previous 100% settings */
+    margin-right: 0 !important;
+    text-align: center;
+    white-space: nowrap;
+  }
+}
+
+.action-buttons {
+  display: flex;
+  gap: 10px;
+  flex-wrap: nowrap;
+  align-items: center;
+}

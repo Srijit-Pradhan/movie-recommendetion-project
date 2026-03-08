@@ -1,0 +1,173 @@
+.profile-page {
+  padding: 20px 0;
+}
+
+/* Step 2: Header styling */
+.profile-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between; /* Added to push logout button to right */
+  gap: 20px;
+  background-color: var(--card-bg-light);
+  padding: 30px;
+  border-radius: 16px;
+  margin-bottom: 40px;
+  border: 1px solid var(--border-light);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.02);
+}
+
+.header-info {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+body.dark .profile-header {
+  background-color: var(--card-bg-dark);
+  border-color: var(--border-dark);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+}
+
+.profile-avatar {
+  background-color: var(--primary-color);
+  color: white;
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 2.5rem;
+  font-weight: 700;
+  flex-shrink: 0;
+}
+
+.profile-header h2 {
+  font-size: 1.8rem;
+  margin-bottom: 5px;
+}
+
+.profile-header p {
+  color: var(--secondary-color);
+  font-size: 1.1rem;
+}
+
+.profile-logout-btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background-color: transparent;
+  color: #ef4444; /* Red color for logout */
+  border: 1px solid #ef4444;
+  padding: 10px 18px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+.profile-logout-btn:hover {
+  background-color: #ef4444;
+  color: white;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(239, 68, 68, 0.2);
+}
+
+/* Step 3: Tabs styling */
+.profile-tabs {
+  display: flex;
+  gap: 15px; /* adjusted gap */
+  margin-bottom: 30px;
+  border-bottom: 2px solid var(--border-light);
+  flex-wrap: wrap; /* Standard desktop wrap */
+}
+
+body.dark .profile-tabs {
+  border-bottom-color: var(--border-dark);
+}
+
+.profile-tabs .tab-btn {
+  background: transparent;
+  border: none;
+  border-radius: 0;
+  padding: 15px 0;
+  color: inherit;
+  font-size: 1.1rem;
+  cursor: pointer;
+  opacity: 0.7;
+  transition: opacity 0.3s;
+}
+
+.profile-tabs .tab-btn:hover {
+  opacity: 1;
+}
+
+.profile-tabs .tab-btn.active {
+  opacity: 1;
+  color: var(--primary-color) !important;
+  border-bottom: 3px solid var(--primary-color) !important;
+  margin-bottom: -2px; /* Pull down to overlap the container border */
+  font-weight: 600;
+}
+
+/* Step 4: No data message */
+.no-data {
+  grid-column: 1 / -1;
+  text-align: center;
+  padding: 40px;
+  font-size: 1.2rem;
+  color: var(--secondary-color);
+  background: var(--card-bg-light);
+  border-radius: 12px;
+}
+
+body.dark .no-data {
+  background: var(--card-bg-dark);
+}
+
+/* Mobile Responsive Adjustments */
+@media (max-width: 640px) {
+  /* Lowered breakpoint to keep horizontal layout longer on small laptops */
+  .profile-header {
+    flex-direction: column;
+    text-align: center;
+    padding: 25px 15px;
+    gap: 15px;
+  }
+
+  .header-info {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  /* Make tabs scroll horizontally instead of ugly wrapping */
+  .profile-tabs {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    white-space: nowrap;
+    padding-bottom: 5px; /* space for scrollbar */
+    gap: 15px;
+    -webkit-overflow-scrolling: touch; /* smooth momentum scrolling on iOS */
+  }
+
+  /* Custom scrollbar for mobile tabs */
+  .profile-tabs::-webkit-scrollbar {
+    height: 4px;
+  }
+  .profile-tabs::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  .profile-tabs::-webkit-scrollbar-thumb {
+    background: var(--border-light);
+    border-radius: 4px;
+  }
+  body.dark .profile-tabs::-webkit-scrollbar-thumb {
+    background: var(--border-dark);
+  }
+
+  .profile-tabs .tab-btn {
+    padding: 10px 5px;
+    font-size: 1rem;
+    flex-shrink: 0;
+  }
+}

@@ -1,0 +1,23 @@
+/* Responsive layout for Person Details page */
+
+@media (max-width: 768px) {
+  .person-header .person-image-container {
+    float: none !important;
+    margin: 0 auto 20px auto !important;
+    width: 100% !important;
+    max-width: 300px;
+  }
+
+  .person-info h1 {
+    text-align: center;
+    font-size: 2rem !important;
+  }
+
+  .person-info h3 {
+    text-align: center;
+  }
+
+  .personal-info-grid {
+    grid-template-columns: 1fr !important;
+  }
+}

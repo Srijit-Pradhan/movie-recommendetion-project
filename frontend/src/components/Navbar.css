@@ -1,0 +1,275 @@
+/* Step 1: Styling the Navbar container with glassmorphism */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 40px;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+/* Step 2: Styling the Logo */
+.nav-logo {
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--primary-color);
+  letter-spacing: 1.5px;
+}
+
+.nav-left {
+  display: flex;
+  align-items: center;
+}
+
+.mobile-nav-icons {
+  display: none; /* Hidden on desktop */
+}
+
+.mobile-only-item {
+  display: none; /* Hidden on desktop */
+}
+
+/* Step 3: Styling the Search and Links area */
+.nav-right {
+  display: flex;
+  align-items: center;
+  gap: 30px;
+}
+
+.nav-actions {
+  display: flex;
+  align-items: center;
+  gap: 30px;
+}
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 30px;
+}
+
+.nav-link {
+  font-weight: 500;
+  transition: color 0.3s;
+  display: flex;
+  align-items: center;
+}
+.nav-link:hover {
+  color: var(--primary-color);
+}
+
+/* Step 4: Theme Toggle Button */
+.theme-toggle {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: inherit;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: color 0.3s;
+}
+.theme-toggle:hover {
+  color: var(--primary-color);
+}
+
+/* Responsive Hamburger Menu Integration */
+.hamburger {
+  display: none;
+  cursor: pointer;
+  color: var(--text-color);
+  z-index: 1001;
+}
+
+.hamburger.show-desktop {
+  display: block !important;
+}
+
+.mobile-text {
+  display: none;
+}
+
+.nav-section-title {
+  display: none; /* Hidden on desktop by default */
+}
+
+@media (max-width: 768px) {
+  /* Prevent horizontal scroll when menu is off-canvas */
+  body {
+    overflow-x: hidden;
+  }
+
+  .navbar {
+    padding: 15px 15px; /* Reclaimed some edge space */
+    flex-direction: row;
+    position: relative;
+    gap: 10px;
+  }
+
+  .nav-logo {
+    font-size: 1.2rem; /* Shrunk logo to fit text links */
+  }
+
+  .nav-right {
+    gap: 12px;
+  }
+
+  .mobile-nav-icons {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+  }
+
+  .m-icon-link {
+    color: var(--text-color);
+    display: flex;
+    align-items: center;
+    transition: color 0.3s;
+  }
+
+  .m-icon-link:hover {
+    color: var(--primary-color);
+  }
+
+  .desktop-nav-item {
+    display: none !important; /* Hide original sidebar links on mobile */
+  }
+
+  .mobile-only-item {
+    display: flex !important; /* Show About Us in mobile sidebar */
+  }
+
+  .hamburger {
+    display: block;
+  }
+
+  .nav-links {
+    position: fixed;
+    top: 0;
+    right: 0;
+    transform: translateX(100%);
+    width: 250px;
+    height: 100vh;
+    background-color: var(
+      --card-bg-light
+    ); /* Added Solid background instead of undefined --surface-color */
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 100px 30px 30px 30px;
+    gap: 30px;
+    transition: transform 0.3s ease-in-out;
+    box-shadow: -5px 0 15px rgba(0, 0, 0, 0.2);
+    z-index: 1000;
+  }
+
+  .nav-links.active {
+    transform: translateX(0);
+  }
+
+  .mobile-text {
+    display: inline-block;
+    margin-left: 10px;
+    color: var(--text-color-light); /* ensure text is visible over background */
+  }
+
+  body.dark .nav-links {
+    background-color: rgba(
+      15,
+      23,
+      42,
+      0.95
+    ); /* darker solid background for dark mode */
+  }
+
+  body.dark .mobile-text {
+    color: var(--text-color-dark);
+  }
+}
+
+/* Sidebar Mode (Fixed positioning on all screens for Admins) */
+.nav-links.sidebar-mode {
+  position: fixed !important;
+  top: 0;
+  right: 0;
+  transform: translateX(100%);
+  width: 280px;
+  height: 100vh;
+  background-color: var(--card-bg-light);
+  backdrop-filter: blur(25px);
+  -webkit-backdrop-filter: blur(25px);
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 100px 30px 30px 30px;
+  gap: 30px;
+  transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: -10px 0 30px rgba(0, 0, 0, 0.15);
+  z-index: 1000;
+  border-left: 1px solid rgba(255, 255, 255, 0.1);
+  display: flex !important; /* Force flex for sidebar layout */
+}
+
+body.dark .nav-links.sidebar-mode {
+  background-color: rgba(15, 23, 42, 0.98);
+}
+
+.nav-links.sidebar-mode.active {
+  transform: translateX(0);
+}
+
+.nav-links.sidebar-mode .mobile-text,
+.nav-links.sidebar-mode .nav-section-title {
+  display: block !important;
+}
+
+.nav-links.sidebar-mode .nav-link {
+  width: 100%;
+  justify-content: flex-start;
+  gap: 15px; /* Improved spacing between icon and text */
+}
+
+.top-search-link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition:
+    color 0.3s,
+    transform 0.2s;
+  color: inherit;
+}
+
+.top-search-link:hover {
+  color: var(--primary-color);
+  transform: scale(1.1);
+}
+
+@media (max-width: 768px) {
+  .top-search-link {
+    display: none; /* Hide top search on mobile since it exists in mobile icons */
+  }
+}
+.admin-nav-group {
+  display: flex;
+  flex-direction: column;
+  gap: 15px; /* Tighter gap for sub-links */
+  width: 100%;
+}
+
+.nav-section-title {
+  display: none; /* Hidden on desktop by default unless in sidebar-mode */
+  font-size: 0.9rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  color: var(--primary-color);
+  letter-spacing: 1.5px;
+  margin-top: 10px;
+  padding-bottom: 5px;
+  border-bottom: 1px solid rgba(229, 9, 20, 0.2);
+  width: 100%;
+}
+
+.nav-links.sidebar-mode .nav-section-title {
+  display: block !important;
+}

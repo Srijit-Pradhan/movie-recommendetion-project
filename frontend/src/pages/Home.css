@@ -1,0 +1,144 @@
+/* Step 1: Styling the Home Page */
+.home-page {
+  padding-bottom: 40px;
+}
+
+/* Step 2: Hero Section (Optional but looks premium) */
+.hero-section {
+  background:
+    linear-gradient(to right, rgba(15, 23, 42, 0.9), rgba(15, 23, 42, 0.4)),
+    url("https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80");
+  background-size: cover;
+  background-position: center;
+  color: white;
+  padding: 80px 40px;
+  border-radius: 16px;
+  margin-bottom: 40px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+}
+
+.hero-section h1 {
+  font-size: 3rem;
+  margin-bottom: 15px;
+}
+
+.hero-section p {
+  font-size: 1.2rem;
+  max-width: 600px;
+  opacity: 0.9;
+}
+
+.hero-search-input {
+  width: 100%;
+  max-width: 700px;
+  padding: 16px 24px;
+  border-radius: 30px;
+  font-size: 1.2rem;
+}
+
+/* Step 3: Category Tabs and Filters */
+.filters-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 15px;
+  margin-bottom: 30px;
+}
+
+.category-tabs {
+  display: flex;
+  gap: 15px;
+  margin-bottom: 0;
+  overflow-x: auto;
+  padding-bottom: 10px;
+  scrollbar-width: none; /* Firefox */
+  flex-grow: 1;
+}
+.category-tabs::-webkit-scrollbar {
+  display: none; /* Chrome/Safari */
+}
+
+.genre-filter {
+  min-width: 150px;
+}
+
+.genre-select {
+  width: 100%;
+  padding: 10px 20px;
+  border-radius: 30px;
+  border: 1px solid var(--border-light);
+  background-color: var(--card-bg-light);
+  color: var(--text-color-light);
+  font-weight: 600;
+  cursor: pointer;
+  outline: none;
+}
+
+body.dark .genre-select {
+  background-color: var(--card-bg-dark);
+  color: var(--text-color-dark);
+  border-color: var(--border-dark);
+}
+
+/* Clean, modern tab buttons */
+.category-tabs .tab-btn {
+  background-color: var(--card-bg-light);
+  color: var(--text-color-light);
+  border: 1px solid var(--border-light);
+  padding: 10px 24px;
+  border-radius: 30px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s;
+  white-space: nowrap;
+}
+
+body.dark .category-tabs .tab-btn {
+  background-color: var(--card-bg-dark);
+  color: var(--text-color-dark);
+  border: 1px solid var(--border-dark);
+}
+
+.category-tabs .tab-btn.active {
+  background-color: var(--primary-color) !important;
+  color: white !important;
+  border-color: var(--primary-color) !important;
+}
+
+.category-tabs .tab-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Step 4: Movies Grid layout */
+.movies-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 25px;
+}
+
+@media (max-width: 768px) {
+  .hero-section {
+    padding: 60px 20px;
+    border-radius: 0;
+  }
+
+  .hero-section h1 {
+    font-size: 2.2rem;
+  }
+
+  .hero-section p {
+    font-size: 1rem;
+  }
+
+  .hero-search-input {
+    font-size: 0.95rem;
+    padding: 12px 20px;
+  }
+
+  .movies-grid {
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 15px;
+  }
+}
