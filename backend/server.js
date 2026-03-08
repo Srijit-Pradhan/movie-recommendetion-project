@@ -15,15 +15,22 @@ const app = express();
 
 // Step 5: Middleware setup (Request processing er jonno)
 // 'cors' enable korle onno domain theke amader server e API call kora jabe e.g React frontend theke
-app.use(cors(
-  {
-  origin: [
-    'http://localhost:5173',
-    process.env.FRONTEND_URL  // Vercel URL টা env থেকে নেবে
-  ],
-  credentials: true
-}
-));
+app.use(cors({
+  origin: (origin, callback) => {
+    const allowedOrigins = [
+      'http://localhost:5173',
+      process.env.FRONTEND_URL,
+    ].filter(Boolean); // undefined/null values filter kore debo
+
+    // origin না থাকলে (যেমন server-to-server call) allow করবো
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
+  credentials: true,
+}));
 // 'express.json()' thakle request e pathano JSON data ke javascript object e convert kore debe backend
 app.use(express.json());
 
