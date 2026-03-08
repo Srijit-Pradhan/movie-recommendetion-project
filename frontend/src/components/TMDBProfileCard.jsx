@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
+import api from "../services/api";
 import { fetchDetails, getImageUrl } from "../utils/tmdb";
 import "./MovieCard.css"; // Amra existing movie card er styling use korbo
 
@@ -22,9 +23,7 @@ const TMDBProfileCard = ({ id }) => {
         // B. Local backend theke check kora
         let localData = null;
         try {
-          const { data } = await axios.get(
-            `http://localhost:3000/api/movies/${id}`,
-          );
+          const { data } = await api.get(`/api/movies/${id}`);
           localData = data;
         } catch (err) {
           /* silent fail */
@@ -85,8 +84,8 @@ const TMDBProfileCard = ({ id }) => {
 
             // Save to Backend (Sync)
             if (!localData || localData.mediaType !== finalType) {
-              axios
-                .post(`http://localhost:3000/api/movies/${id}/sync-type`, {
+              api
+                .post(`/api/movies/${id}/sync-type`, {
                   mediaType: finalType,
                 })
                 .catch(() => {});

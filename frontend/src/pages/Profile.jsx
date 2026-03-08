@@ -2,6 +2,7 @@
 import React, { useState, useEffect, useContext } from "react";
 import { AuthContext } from "../context/AuthContext";
 import axios from "axios";
+import api from "../services/api";
 import { useNavigate } from "react-router-dom";
 import { LogOut } from "lucide-react"; // Added LogOut icon
 import TMDBProfileCard from "../components/TMDBProfileCard"; // TMDB Profile Card use korchi ekhon
@@ -139,13 +140,7 @@ const Profile = () => {
     const fetchProfileData = async () => {
       try {
         setProfileLoading(true);
-        const { data } = await axios.get(
-          "http://localhost:3000/api/users/profile",
-          {
-            // amake verify korar jonno amay token dite hosse headers e.
-            headers: { Authorization: `Bearer ${token}` },
-          },
-        );
+        const { data } = await api.get("/api/users/profile");
         setProfileData(data); // Ekhane ekhon TMDB API er string IDs ache
       } catch (error) {
         console.error("Error fetching profile", error);

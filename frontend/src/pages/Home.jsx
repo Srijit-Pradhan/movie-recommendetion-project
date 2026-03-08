@@ -2,6 +2,7 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
+import api from "../services/api";
 import MovieCard from "../components/MovieCard";
 import Loader from "../components/Loader";
 import {
@@ -73,7 +74,7 @@ const Home = () => {
       try {
         // Parallel call to both local and TMDB
         const [localResponse, tmdbData] = await Promise.all([
-          axios.get(`http://localhost:3000/api/movies?keyword=${searchQuery}`),
+          api.get(`/api/movies?keyword=${searchQuery}`),
           searchMulti(searchQuery),
         ]);
 

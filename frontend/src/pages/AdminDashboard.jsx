@@ -1,6 +1,7 @@
 // Step 1: Hooks for page working
 import React, { useState, useEffect, useContext } from "react";
 import axios from "axios";
+import api from "../services/api";
 import { AuthContext } from "../context/AuthContext";
 // useLocation nilam jate URL er path (/admin/movies) check kora jay
 import { useNavigate, useLocation, Link } from "react-router-dom";
@@ -52,9 +53,7 @@ const AdminDashboard = () => {
   const fetchMovies = async () => {
     try {
       // url hit kre data anchi (unprotected kano na publicly movie list je keu dekhte pare)
-      const { data } = await axios.get(
-        "http://localhost:3000/api/movies?limit=100",
-      );
+      const { data } = await api.get("/api/movies?limit=100");
       setMovies(data.movies || []);
     } catch (error) {
       console.error(error);
@@ -64,7 +63,7 @@ const AdminDashboard = () => {
   const fetchUsers = async () => {
     try {
       // User er privacy tai data anar time a auth token joruri
-      const { data } = await axios.get("http://localhost:3000/api/users", {
+      const { data } = await api.get("/api/users", {
         headers: { Authorization: `Bearer ${token}` },
       });
       setUsers(data);
@@ -112,8 +111,8 @@ const AdminDashboard = () => {
       // Jodi agei editing id check kora theke mane "EDIT" mode a ache noile "CREATE"
       if (editingMovieId) {
         // Edit(Update) Data
-        await axios.put(
-          `http://localhost:3000/api/movies/${editingMovieId}`,
+        await api.put(
+          `/api/movies/${editingMovieId}`,
           payload,
           { headers: { Authorization: `Bearer ${token}` } },
         );
@@ -121,7 +120,7 @@ const AdminDashboard = () => {
         setEditingMovieId(null);
       } else {
         // Create Data
-        await axios.post("http://localhost:3000/api/movies", payload, {
+        await api.post("/api/movies", payload, {
           headers: { Authorization: `Bearer ${token}` },
         });
         alert("Movie added successfully!");
@@ -199,7 +198,7 @@ const AdminDashboard = () => {
       )
     ) {
       try {
-        await axios.delete(`http://localhost:3000/api/movies/${id}`, {
+        await api.delete(`/api/movies/${id}`, {
           headers: { Authorization: `Bearer ${token}` },
         });
         // API delete marar por UI theke o line t kete uriye dchi locally fast feel er jono
@@ -214,8 +213,8 @@ const AdminDashboard = () => {
   const handleBanUser = async (id) => {
     try {
       // Toggle backend theke value nbe
-      const { data } = await axios.put(
-        `http://localhost:3000/api/users/${id}/ban`,
+      const { data } = await api.put(
+        `/api/users/${id}/ban`,
         {},
         {
           headers: { Authorization: `Bearer ${token}` },
@@ -240,7 +239,7 @@ const AdminDashboard = () => {
       )
     ) {
       try {
-        await axios.delete(`http://localhost:3000/api/users/${id}`, {
+        await api.delete(`/api/users/${id}`, {
           headers: { Authorization: `Bearer ${token}` },
         });
         // ek e bhabe lokal UI te tar id badi baki list show koriye line uthai pelci

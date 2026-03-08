@@ -4,8 +4,6 @@
  * All movie-related backend calls are managed here.
  */
 import api from "./api";
-import axios from "axios";
-const API_URL = "http://localhost:3000/api/movies";
 
 export const movieService = {
   // Local database theke movie details anar jonno
@@ -21,8 +19,8 @@ export const movieService = {
 
   // Rating submit kora (Local backend e)
   submitRating: async (id, rating, mediaType, token) => {
-    return axios.post(
-      `${API_URL}/${id}/rate`,
+    return api.post(
+      `/api/movies/${id}/rate`,
       { rating, mediaType },
       {
         headers: { Authorization: `Bearer ${token}` },

@@ -3,6 +3,7 @@
 // useState: data dhore rakhar jonno, useEffect: component load hole ba data change hole kichu korar jonno
 import React, { createContext, useState, useEffect } from "react";
 import axios from "axios";
+import api from "../services/api";
 
 // Step 2: AuthContext toiri korchi, jate shob component user er bapare jante pare
 export const AuthContext = createContext();
@@ -18,9 +19,7 @@ export const AuthProvider = ({ children }) => {
   // Step 4: Backend theke logged-in user er profile data anar function
   const fetchProfile = async () => {
     try {
-      const { data } = await axios.get(
-        "http://localhost:3000/api/users/profile",
-      );
+      const { data } = await api.get("/api/users/profile");
       setUser(data);
       return data;
     } catch (error) {
@@ -50,7 +49,7 @@ export const AuthProvider = ({ children }) => {
 
   // Step 6: Login function
   const login = async (email, password) => {
-    const { data } = await axios.post("http://localhost:3000/api/auth/login", {
+    const { data } = await api.post("/api/auth/login", {
       email,
       password,
     });
@@ -61,8 +60,8 @@ export const AuthProvider = ({ children }) => {
 
   // Step 7: Register (Sign up) function
   const register = async (name, email, password) => {
-    const { data } = await axios.post(
-      "http://localhost:3000/api/auth/register",
+    const { data } = await api.post(
+      "/api/auth/register",
       { name, email, password },
     );
     setToken(data.token);
