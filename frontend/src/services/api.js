@@ -8,7 +8,7 @@ import axios from "axios";
 // Ekta base instance banachhi jate bar bar pure URL likhte na hoy
 // Creating a base instance to avoid repeating the base URL in every request
 const api = axios.create({
-  baseURL: "http://localhost:3000/api",
+  baseURL: import.meta.env.VITE_API_URL || 'http://localhost:3000',
 });
 
 /**
