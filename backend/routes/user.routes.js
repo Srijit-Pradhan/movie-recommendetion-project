@@ -13,6 +13,7 @@ const {
   toggleBookmark,
   toggleWatchlist,
   banUser,
+  updateUserProfile,
 } = require("../controllers/user.controller"); // Changed to user.controller
 
 // Step 3: Security Middleware gulo nilam
